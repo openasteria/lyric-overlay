@@ -198,3 +198,15 @@ pactl/wpctl     ──┘        │                       (*artist — толь
 
 MIT. Шрифт Figtree — SIL Open Font License (не включён в репозиторий, скачайте сами).
 Иконка `assets/icon.svg` — по мотивам макета Figma.
+
+## 🚀 Быстрый запуск (одной командой, без автозапуска)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/openasteria/lyric-overlay/master/scripts/run.sh | bash
+```
+
+Виджет запустится прямо в этом терминале — **Ctrl+C** мгновенно его закрывает.
+Ничего не добавляется в autostart/systemd. Скрипт скачивает репозиторий в
+`~/.local/share/lyric-overlay`, при первом запуске ставит зависимости, дальше
+только обновляет и запускает. Токен Genius: `GENIUS_TOKEN='токен' curl -fsSL ... | bash -s --`
+или экспортируйте `GENIUS_TOKEN` перед запуском.
