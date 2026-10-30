@@ -191,6 +191,14 @@ class App:
         app.connect("activate", activate)
         interval = int(self.cfg["lyrics"].get("update_interval_ms", 500))
         GLib.timeout_add(interval, on_tick)
+
+        # Ctrl+C (SIGINT/SIGTERM) корректно завершает GTK-цикл прямо в терминале
+        for sig in (signal.SIGINT, signal.SIGTERM):
+            try:
+                signal.signal(sig, lambda *_: GLib.idle_add(app.quit))
+            except (ValueError, OSError):
+                pass
+
         return app.run(None)
 
     def run_headless(self, duration: float | None = None) -> int:
