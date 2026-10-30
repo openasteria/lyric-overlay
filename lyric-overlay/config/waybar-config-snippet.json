@@ -1,0 +1,20 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["sway/workspaces", "custom/lyric"],
+  "modules-center": ["clock"],
+  "modules-right": ["pulseaudio", "battery"],
+
+  "custom/lyric": {
+    "format": "{}",
+    "exec": "$HOME/.local/bin/waybar-module.sh",
+    "restart-interval": 1,
+    "return-type": "json",
+    "on-click": "$HOME/.local/bin/waybar-module.sh --toggle",
+    "tooltip": true,
+    "tooltip-format": "{tooltip}",
+    "max-length": 40
+  },
+
+  "clock": { "format": "{:%H:%M}" }
+}

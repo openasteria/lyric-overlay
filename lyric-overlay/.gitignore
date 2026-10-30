@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.pytest_cache/
+# локальные токены — не коммитить!
+config/config.local.yaml
+config/config.local.json
+.env

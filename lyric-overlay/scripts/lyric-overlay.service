@@ -1,0 +1,16 @@
+[Unit]
+Description=Lyric Overlay — виджет текстов песен для Sway/Wayland
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+# Отредактируйте пути под вашу установку:
+Environment=GENIUS_TOKEN=вставь_свой_токен_или_используй_environment_directory
+# EnvironmentDirectory=%h/.config/lyric-overlay/env.d
+ExecStart=%h/lyric-overlay/.venv/bin/lyric-overlay
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

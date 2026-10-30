@@ -1,0 +1,68 @@
+/* ============================================================
+   Lyric Overlay — стили виджета (макет Figma)
+   GTK4 CSS. Значения дублируются в config.yaml — при изменении
+   геометрии правьте оба файла (CSS приоритетнее по стилям,
+   конфиг — по размерам окон/отступов).
+   ============================================================ */
+
+/* Шрифт Figtree: положить файлы в ~/.local/share/fonts/Figtree и
+   выполнить `fc-cache -f`. См. fonts/README.md */
+
+.lyric-overlay {
+    /* Прозрачный фон вокруг виджета — «плавает поверх всего» */
+    background: transparent;
+}
+
+/* Общий контейнер-«пилюля»: иконка + текст, opacity 100% */
+.lyric-overlay pill,
+.lyric-overlay .pill {
+    background-color: #1e1e1e;
+    border-radius: 5px;              /* corner radius по макету */
+    padding: 0px;
+    margin: 0px;
+    opacity: 1;
+}
+
+/* Иконка: 38×36 px, скругление 5px, отступ до текста ~10px (spacing у Box) */
+.lyric-overlay .icon-box {
+    min-width: 38px;
+    min-height: 36px;
+    border-radius: 5px;
+    background-color: #2a2a2a;       /* белый круг с чёрным символом рисует SVG */
+}
+
+.lyric-overlay .icon-box image,
+.lyric-overlay .icon-box paintable {
+    border-radius: 5px;
+}
+
+/* Текстовая область: 146×36 минимум, расширяется динамически */
+.lyric-overlay .text-area {
+    min-height: 36px;
+    min-width: 146px;
+    padding-right: 12px;
+    /* выравнивание: левый край, вертикальный центр (valign=center у label) */
+}
+
+/* Базовый шрифт: Figtree 14px */
+.lyric-overlay label {
+    font-family: "Figtree", "Inter", "Cantarell", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #888888;                  /* неактивный цвет по умолчанию */
+}
+
+/* Активная строка — белая */
+.lyric-overlay .active-line {
+    color: #ffffff;
+}
+
+/* Неактивная часть (следующая строка / пауза) — серая */
+.lyric-overlay .inactive-line {
+    color: #888888;
+}
+
+/* Состояние «пауза»: вся пилюля чуть приглушена */
+.lyric-overlay.paused .pill {
+    opacity: 0.85;
+}

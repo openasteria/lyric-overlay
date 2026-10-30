@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="36" viewBox="0 0 38 36">
+  <!-- Иконка виджета: белый круг с чёрным символом (нота) по макету Figma.
+       Углы контейнера скруглены на 5px (clip), фон под кругом — тёмный. -->
+  <defs>
+    <clipPath id="round">
+      <rect x="0" y="0" width="38" height="36" rx="5" ry="5"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect x="0" y="0" width="38" height="36" fill="#1e1e1e"/>
+    <circle cx="19" cy="18" r="15" fill="#ffffff"/>
+    <!-- нота ♪ -->
+    <g fill="#000000">
+      <ellipse cx="15.2" cy="24.2" rx="4.1" ry="3.0" transform="rotate(-20 15.2 24.2)"/>
+      <rect x="18.2" y="9.5" width="2.1" height="14.2" rx="1.05"/>
+      <path d="M19.6 9.5 C 24.5 10.6, 26.8 12.8, 25.4 16.2 C 24.7 13.4, 22.6 12.0, 19.6 12.6 Z"/>
+    </g>
+  </g>
+</svg>

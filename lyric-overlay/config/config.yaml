@@ -1,0 +1,77 @@
+# ============================================================
+#  Lyric Overlay — конфигурация
+# ============================================================
+
+widget:
+  # Позиционирование layer-shell (wlr-layer-shell / GtkLayerShell)
+  anchor_corner: top-left        # top-left | top-right | bottom-left | bottom-right
+  margin_x: 12                   # отступ от края экрана, px
+  margin_y: 12
+  layer: overlay                 # background | bottom | top | overlay
+  exclusive_zone: 0              # не зарезервировать место под виджет (плавает поверх)
+  keyboard_interactive: none
+
+  # Геометрия по макету Figma
+  height: 36                     # высота строки виджета, px
+  icon_size: 38                  # ширина иконки-обложки (38x36 по макету)
+  text_min_width: 146            # минимальная ширина текстовой части
+  text_max_width: 520            # максимальная ширина (далее — ellipsize)
+  corner_radius: 5               # скругление всех углов, px
+  icon_gap: 10                   # отступ между иконкой и текстом, px
+
+  colors:
+    background: "#1e1e1e"        # фон текстовой области
+    text_active: "#ffffff"       # активная строка — белый
+    text_inactive: "#888888"     # неактивная часть — серый
+    icon_fallback_bg: "#2a2a2a"  # фон заглушки иконки
+
+  font:
+    family: "Figtree"            # установлен из fonts/Figtree (см. README)
+    fallback_family: "Sans"
+    size_px: 14
+
+  opacity: 1.0                   # прозрачность самого окна (фон вокруг — прозрачный)
+
+  # Строка "Название песни, следующая часть текста" — БЕЗ исполнителя
+  show_title_prefix: true
+  title_separator: ", "
+
+lyrics:
+  genius_token_env: GENIUS_TOKEN       # токен берётся из переменной окружения
+  genius_token: ""                     # либо можно вписать сюда (не рекомендуется)
+  cache_dir: "~/.cache/lyric-overlay"
+  fetch_timeout_s: 8
+  # Если точной синхронизации нет — показывать весь текст с прокруткой
+  scroll_when_unsynced: true
+  scroll_step_chars_per_tick: 2
+  update_interval_ms: 500              # частота обновления позиции/строки
+
+detection:
+  # Порядок источников детекции "что сейчас играет"
+  sources: [mpris, window_title]
+  mpris:
+    # Игнорировать эти сервисы MPRIS (например, сам оверлей)
+    ignore_players: ["chrome-mpris", "firefox-mpris"]
+    prefer: []                          # например ["spotify", "mpv"]
+  window_title:
+    # Парсинг заголовков окон (Firefox/Chromium/SoundCloud/mpv) через swaymsg -t get_tree
+    patterns:
+      youtube:
+        # "Название — YouTube — Mozilla Firefox" / "... - YouTube - Google Chrome"
+        - '^(?P<title>.+?)\s+[–—-]\s+(YouTube)\s+[–—-]\s+'
+      soundcloud:
+        - '^(?P<title>.+?)\s+[–—-]\s+(SoundCloud)\s*[–—-]?\s*'
+        - '^SoundCloud\s*[–—-]\s*(?P<title>.+?)\s+[–—-]'
+      mpv:
+        - '^\s*MPV\s*\(\s*(?P<file>[^)]+)\)\s*$'
+      generic_browser:
+        - '^(?P<title>.+?)\s+[–—-]\s+(Mozilla Firefox|Google Chrome|Chromium)\s*$'
+    # Регулярка для очистки "1. Song Name", "[Official Video]" и т.п.
+    cleanup_regex: '\s*[\[(](Official (Music )?Video|Audio|HD|Lyrics?|Visualizer)[\])].*$'
+    poll_interval_ms: 1000
+
+waybar:
+  enabled: true
+  # Файл состояния для модуля custom — Waybar читает его и показывает "♪ название"
+  state_file: "~/.local/state/lyric-overlay/waybar.json"
+  tooltip: "Click to toggle lyric overlay"
